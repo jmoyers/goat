@@ -1,0 +1,31 @@
+<html>
+<head>
+    <link rel="stylesheet" href="dist/client.min.css">
+    <script type="text/javascript" src="dist/client.min.js"></script>
+</head>
+<body>
+<div ng-app="song" ng-controller="SongController as song">
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Artist</td>
+                    <td>Album</td>
+                    <td>Song</td>
+                </tr>
+            </thead>
+            <tr>
+                <td>{{artist}}</td>
+                <td>{{album}}</td>
+                <td>{{title}}</td>
+            </tr>
+        </table>
+        <div class="navbar navbar-fixed-bottom">
+            <button type="button" class="btn btn-default btn-lg" ng-click="song.debug()">
+                Debug
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
