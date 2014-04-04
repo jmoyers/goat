@@ -1,9 +1,9 @@
 var id3 = require('id3js');
-var Walk = require('./walk.js');
 var express = require('express');
 var app = express();
 var http = require('http');
 var path = require('path');
+var Walk = require(path.join(__dirname, 'walk.js'));
 var WebSocketServer = require('ws').Server;
 var clientPath = path.join(__dirname, '..', 'client');
 
@@ -23,8 +23,10 @@ wss.on('connection', function(ws) {
    console.log("New ws connection");
 
    var id = setInterval(function() {
-      ws.send(JSON.stringify(process.memoryUsage()));
-   }, 1000);
+      var memUsage = process.memoryUsage();
+      console.log("sending memory usage " + JSON.stringify(memUsage));
+      ws.send(JSON.stringify(memUsage));
+   }, 3000);
 
    console.log('started client interval');
 

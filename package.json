@@ -1,9 +1,9 @@
 {
   "name": "goat",
   "version": "0.0.1",
-  "main": "app/main.html",
+  "main": "app/client/index.html",
   "window": {
-    "toolbar": true,
+    "toolbar": false,
     "resizable": true,
     "fullscreen": false,
     "width": 800,
@@ -11,8 +11,17 @@
   },
   "dependencies": {
     "lodash": "^2.4.1",
+    "id3js": "^1.1.2",
+    "express": "^3.5.1",
+    "ws": "^0.4.31"
+  },
+  "devDependencies": {
     "mocha": "^1.18.2",
     "grunt": "^0.4.4",
-    "grunt-node-webkit-builder": "^0.1.19"
+    "grunt-node-webkit-builder": "^0.1.19",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-cssmin": "^0.9.0"
   }
 }
