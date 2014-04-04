@@ -1,0 +1,18 @@
+{
+  "name": "goat",
+  "version": "0.0.1",
+  "main": "app/main.html",
+  "window": {
+    "toolbar": true,
+    "resizable": true,
+    "fullscreen": false,
+    "width": 800,
+    "height": 600
+  },
+  "dependencies": {
+    "lodash": "^2.4.1",
+    "mocha": "^1.18.2",
+    "grunt": "^0.4.4",
+    "grunt-node-webkit-builder": "^0.1.19"
+  }
+}
