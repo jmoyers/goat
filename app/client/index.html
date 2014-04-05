@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="client.css">
 
     <script type="text/javascript" src="bower/lodash/dist/lodash.js"></script>
+    <script type="text/javascript" src="bower/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="bower/angular/angular.js"></script>
     <script type="text/javascript" src="client.js"></script>
 </head>
 <body>
-<div>
     <div class="container">
         <table class="table">
             <thead>
@@ -27,17 +27,8 @@
                 <td>{{title}}</td>
             </tr>
         </table>
-        <div ng-show="isNodeWebkit" class="navbar navbar-fixed-bottom">
-            <button type="button" class="btn btn-default btn-lg" ng-click="goat.debug()">
-                Debug
-            </button>
-        </div>
     </div>
-</div>
-<div ng-if="isNodeWebkit">
-    <script type="text/javascript">
-        require('../server/server.js');
-    </script>
-</div>
+    <div ng-if="debug" ng-include="'partials/debug.html'"></div>
+    <div ng-if="nodeWebkit" ng-include="'partials/server.html'"></div>
 </body>
 </html>

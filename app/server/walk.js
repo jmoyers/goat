@@ -1,10 +1,10 @@
-var fs = require('fs'),
-   path = require('path'),
-   EventEmitter = require('events').EventEmitter,
-   util = require('util');
+var fs = require('fs');
+var path = require('path');
+var EventEmitter = require('events').EventEmitter;
+var util = require('util');
 
-function Walk(root) {
-   this.root = path(path.resolve(root||'.'));
+function Walk(root){
+   this.root = root;
    this.files = [];
 }
 

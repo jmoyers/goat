@@ -1,0 +1,22 @@
+<div class="navbar navbar-fixed-bottom">
+    <table class="table">
+        <thead>
+        <tr>
+            <td></td>
+            <td>Load Time</td>
+            <td>Heap Total</td>
+            <td>Heap Used</td>
+        </tr>
+        </thead>
+        <tr>
+            <td>
+                <button ng-show="nodeWebkit" type="button" class="btn btn-default btn-lg" ng-click="goat.debug()">
+                    Debug
+                </button>
+            </td>
+            <td>{{operationLoadTime}}</td>
+            <td>{{heapTotal}}</td>
+            <td>{{heapUsed}}</td>
+        </tr>
+    </table>
+</div>
