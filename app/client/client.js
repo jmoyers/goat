@@ -16,6 +16,12 @@ var ws = new WebSocket('ws://localhost:8080');
 app.controller('GoatController', ['$scope', 'config', function ($scope, config) {
   $scope = _.extend($scope, config);
 
+  var PlayStates = {
+    STOPPED: 0,
+    PLAYING: 1,
+    PAUSED: 2
+  }
+
   if (config.debug) {
     $scope.operationLoadTime = "0s";
     $scope.heapTotal = "0.00 MB";
@@ -25,6 +31,8 @@ app.controller('GoatController', ['$scope', 'config', function ($scope, config) 
   $scope.artist = "Some Artist";
   $scope.album = "Some Album";
   $scope.title = "Some Title";
+
+  $scope.playState = PlayStates.PLAYING;
 
   var ws = new WebSocket("ws://localhost:8080");
   ws.binaryType = "arraybuffer";
@@ -43,15 +51,33 @@ app.controller('GoatController', ['$scope', 'config', function ($scope, config) 
       console.log("Decoded buffer");
 
       // Stop the existing buffer
-      if (audioSource) audioSource.stop();
+      if (audioSource && $scope.playState == PlayStates.PLAYING) {
+        audioSource.stop();
+      }
 
       audioSource = context.createBufferSource();
 
       audioSource.buffer = buffer;
       audioSource.connect(context.destination);
 
-      audioSource.start(0, context.currentTime);
+      if ($scope.playState == PlayStates.PLAYING){
+        audioSource.start(0, context.currentTime);
+      }
     });
+  }
+
+  this.clickedPlay = function(){
+    console.log("Clicked");
+
+    if ($scope.playState == PlayStates.PLAYING) {
+      console.log("Pausing playback");
+      audioSource.stop();
+      $scope.playState = PlayStates.PAUSED;
+    } else {
+      console.log("Starting playback");
+      audioSource.start(0, context.currentTime);
+      $scope.playState = PlayStates.PLAYING;
+    }
   }
 
   this.debug = function () {
