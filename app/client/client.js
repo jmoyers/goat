@@ -6,6 +6,20 @@ if (nodeWebkit) {
 
 var app = angular.module('goat', []);
 
+app.service('MediaPlayer', function(){
+  var PlayStates = this.PlayStates = {
+    STOPPED: 0,
+    PLAYING: 1,
+    PAUSED: 2
+  }
+
+  this.playerState = PlayStates.STOPPED;
+  this.media = null;
+  this.time = 0;
+  this.volume = 1;
+  this.muted = false;
+});
+
 app.constant('config', {
   nodeWebkit: nodeWebkit,
   debug: true
