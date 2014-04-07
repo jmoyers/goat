@@ -1,22 +1,23 @@
-<html ng-app="goat" ng-controller="GoatController as goat">
+<!DOCTYPE html>
+<html ng-app="goat" ng-controller="GoatController">
 <head>
     <!--<link rel="stylesheet" href="dist/client.min.css">-->
     <!--<script type="text/javascript" src="dist/client.min.js"></script>-->
 
-    <link rel="stylesheet" href="bower/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="client.css">
 
-    <script type="text/javascript" src="bower/lodash/dist/lodash.js"></script>
-    <script type="text/javascript" src="bower/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="bower/angular/angular.js"></script>
+    <script type="text/javascript" src="vendor/websocket-stream/websocket-stream.js"></script>
+    <script type="text/javascript" src="vendor/lodash/dist/lodash.js"></script>
+    <script type="text/javascript" src="vendor/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="vendor/angular/angular.js"></script>
+    <script type="text/javascript" src="services/audio-output.js"></script>
     <script type="text/javascript" src="client.js"></script>
 </head>
 <body>
-    <div class="navbar-fixed-top player-controls">
-        <div class="container" style="margin: 10px;">
-            <button ng-click="goat.clickedPlay()" class="btn btn-default btn-lg">
-                <span class="glyphicon glyphicon-{{playState}}"></span>
-            </button>
+    <div class="navbar navbar-fixed-top">
+        <div class="container">
+            <player player="player" size="m" />
         </div>
     </div>
     <div class="container">

@@ -1,4 +1,4 @@
-var nodeWebkit = (typeof(require) !== 'undefined');
+var nodeWebkit = (typeof(process) !== 'undefined');
 
 if (nodeWebkit) {
   _ = require('lodash');
@@ -6,35 +6,81 @@ if (nodeWebkit) {
 
 var app = angular.module('goat', []);
 
-app.service('MediaPlayer', function(){
-  var PlayStates = this.PlayStates = {
-    STOPPED: 0,
-    PLAYING: 1,
-    PAUSED: 2
-  }
-
-  this.playerState = PlayStates.STOPPED;
-  this.media = null;
-  this.time = 0;
-  this.volume = 1;
-  this.muted = false;
-});
-
 app.constant('config', {
   nodeWebkit: nodeWebkit,
+  stateURL: "ws://localhost:8080",
+  mediaStreamURL: "ws://localhost:8080",
   debug: true
 });
 
-var ws = new WebSocket('ws://localhost:8080');
+app.factory('MediaStream', ['config', function(config){
+  return wss(config.mediaStreamURL);
+}]);
 
-app.controller('GoatController', ['$scope', 'config', function ($scope, config) {
-  $scope = _.extend($scope, config);
+app.service('AudioOutput', AudioOutput);
 
-  var PlayStates = {
+app.service('MediaPlayer', ['MediaStream', 'AudioOutput', function(mediaStream, audioOutput){
+  this.PlayStates = {
     STOPPED: 0,
     PLAYING: 1,
     PAUSED: 2
   }
+
+  this.trackSource = null;
+  this.state = this.PlayStates.PAUSED;
+  this.time = 0;
+  this.volume = 1;
+  this.muted = false;
+
+  this.audioOutput = audioOutput;
+
+  this.media = {
+    title: "The Outsider",
+    artist: "A Perfect Circle",
+    album: "Thirteenth Step",
+    year: 2004
+  }
+
+  this.mediaStream = mediaStream;
+
+  this.mediaStream.pipe(this.audioOutput);
+
+  this.playToggle = function(){
+    if (this.isPlaying()) this.pause()
+    else this.play();
+  }
+
+  this.play = function(){
+    this.state = this.PlayStates.PLAYING;
+    this.audioOutput.play();
+  }
+
+  this.pause = function(){
+    this.state = this.PlayStates.PAUSED;
+    this.audioOutput.pause();
+  }
+
+  this.next = function(){ }
+
+  this.prev = function(){ }
+
+  this.muteToggle = function(){
+    var targetVolume = this.muted ? this.volume : 0;
+    this.audioOutput.setVolume(targetVolume);
+    this.muted = !this.muted;
+  }
+
+  this.isPlaying = function(){
+    return this.state == this.PlayStates.PLAYING;
+  }
+
+  this.isPaused = function(){
+    return this.state == this.PlayStates.PAUSED;
+  }
+}]);
+
+app.controller('GoatController', ['$scope', 'config', function ($scope, config, player) {
+  $scope = _.extend($scope, config);
 
   if (config.debug) {
     $scope.operationLoadTime = "0s";
@@ -42,69 +88,61 @@ app.controller('GoatController', ['$scope', 'config', function ($scope, config) 
     $scope.heapUsed = "0.00 MB";
   }
 
-  $scope.artist = "Some Artist";
-  $scope.album = "Some Album";
-  $scope.title = "Some Title";
-
-  $scope.playState = PlayStates.PLAYING;
-
-  var ws = new WebSocket("ws://localhost:8080");
-  ws.binaryType = "arraybuffer";
-
-  var context = new webkitAudioContext();
-  var rawBuffer = false;
-  var audioSource = false;
-
-  ws.onmessage = function (message) {
-    console.log("Received chunk");
-
-    if (rawBuffer) rawBuffer = appendBuffer(rawBuffer, message.data);
-    else rawBuffer = message.data;
-
-    context.decodeAudioData(rawBuffer, function(buffer){
-      console.log("Decoded buffer");
-
-      // Stop the existing buffer
-      if (audioSource && $scope.playState == PlayStates.PLAYING) {
-        audioSource.stop();
-      }
-
-      audioSource = context.createBufferSource();
-
-      audioSource.buffer = buffer;
-      audioSource.connect(context.destination);
-
-      if ($scope.playState == PlayStates.PLAYING){
-        audioSource.start(0, context.currentTime);
-      }
-    });
-  }
-
-  this.clickedPlay = function(){
-    console.log("Clicked");
-
-    if ($scope.playState == PlayStates.PLAYING) {
-      console.log("Pausing playback");
-      audioSource.stop();
-      $scope.playState = PlayStates.PAUSED;
-    } else {
-      console.log("Starting playback");
-      audioSource.start(0, context.currentTime);
-      $scope.playState = PlayStates.PLAYING;
-    }
-  }
-
-  this.debug = function () {
+  $scope.debug = function () {
     require('nw.gui').Window.get().showDevTools();
   }
 }]);
 
-var appendBuffer = function(buffer1, buffer2) {
-  var tmp = new Uint8Array(buffer1.byteLength + buffer2.byteLength);
-  tmp.set(new Uint8Array(buffer1), 0);
-  tmp.set(new Uint8Array(buffer2), buffer1.byteLength);
-  return tmp.buffer;
-};
+app.directive("player", ['MediaPlayer', function(player){
+  return {
+    restrict: "E",
+    templateUrl: "partials/player.html",
+    replace: true,
+    link: function(scope, element, attrs){
+      var sizeButtonClass = {
+        's': 'btn-sm',
+        'm': '',
+        'xs': 'btn-xs',
+        'l': 'btn-lg'
+      }
+
+      scope.player = player;
+      scope.size = sizeButtonClass[attrs.size] || '';
+    }
+  }
+}]);
+
+app.directive('toggleButton', function(){
+  return {
+    restrict: 'E',
+    scope: {
+      off: '@',
+      on: '@',
+      state: '@',
+      notify: '&',
+      size: '@'
+    },
+    replace: true,
+    template: '<button ng-click="toggle()" class="btn btn-default {{size}}"><span class="glyphicon"></span></button>',
+    link: function(scope, element){
+      var state = scope.state;
+
+      scope.toggle = function(){
+        state = !state;
+        scope.notify();
+        changeClass();
+      }
+
+      var changeClass = function(){
+        var remove = !state ? scope.off : scope.on;
+        var add = state ? scope.off : scope.on;
+        element.find('span').removeClass(remove).addClass(add);
+      }
+
+      changeClass();
+    }
+  }
+});
 
 var humanSize = function(size) {
   var i = Math.floor(Math.log(size) / Math.log(1024));

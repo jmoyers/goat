@@ -28,6 +28,7 @@ var wss = new WSS({server: server});
 
 var library = "C:/Users/Joshua/Dropbox/iTunes/iTunes Music";
 var song = library + "/A Perfect Circle/Thirteenth Step/06 A Stranger.mp3";
+//var song = "C:/Users/Joshua/Downloads/test.mp3"
 
 
 
