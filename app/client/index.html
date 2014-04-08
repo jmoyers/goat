@@ -4,15 +4,15 @@
     <!--<link rel="stylesheet" href="dist/client.min.css">-->
     <!--<script type="text/javascript" src="dist/client.min.js"></script>-->
 
-    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="client.css">
+    <link rel="stylesheet" href="components/vendor/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="components/client.css">
 
-    <script type="text/javascript" src="vendor/websocket-stream/websocket-stream.js"></script>
-    <script type="text/javascript" src="vendor/lodash/dist/lodash.js"></script>
-    <script type="text/javascript" src="vendor/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="vendor/angular/angular.js"></script>
+    <script type="text/javascript" src="components/vendor/websocket-stream/websocket-stream.js"></script>
     <script type="text/javascript" src="services/audio-output.js"></script>
-    <script type="text/javascript" src="client.js"></script>
+    <script type="text/javascript" src="components/vendor/lodash/dist/lodash.js"></script>
+    <script type="text/javascript" src="components/vendor/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="components/vendor/angular/angular.js"></script>
+    <script type="text/javascript" src="components/client.js"></script>
 </head>
 <body>
     <div class="navbar navbar-fixed-top">
@@ -21,22 +21,24 @@
         </div>
     </div>
     <div class="container">
-        <table class="table">
+        <table class="table tracklisting">
             <thead>
                 <tr>
-                    <td>Artist</td>
-                    <td>Album</td>
-                    <td>Song</td>
+                    <td class="song">Song</td>
+                    <td class="time">Time</td>
+                    <td class="artist">Artist</td>
+                    <td class="album">Album</td>
                 </tr>
             </thead>
             <tr>
+                <td>{{song}}</td>
+                <td>{{duration}}</td>
                 <td>{{artist}}</td>
                 <td>{{album}}</td>
-                <td>{{title}}</td>
             </tr>
         </table>
     </div>
-    <div ng-if="debug" ng-include="'partials/debug.html'"></div>
-    <div ng-if="nodeWebkit" ng-include="'partials/server.html'"></div>
+    <div ng-if="debug" ng-include="'components/debug.html'"></div>
+    <div ng-if="nodeWebkit" ng-include="'components/server.html'"></div>
 </body>
 </html>

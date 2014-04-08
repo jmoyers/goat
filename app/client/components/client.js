@@ -96,7 +96,7 @@ app.controller('GoatController', ['$scope', 'config', function ($scope, config, 
 app.directive("player", ['MediaPlayer', function(player){
   return {
     restrict: "E",
-    templateUrl: "partials/player.html",
+    templateUrl: "components/player.html",
     replace: true,
     link: function(scope, element, attrs){
       var sizeButtonClass = {

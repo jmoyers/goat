@@ -17,6 +17,7 @@ function AudioOutput() {
   this.rawBuffer = false;
   this.decodedBuffer = false;
 
+  // Composable decoder, later will factor into Duplex stream to use mp3.js
   this.decode =_.debounce(context.decodeAudioData.bind(context), 50, {
     leading: true,
     trailing: true
@@ -66,6 +67,7 @@ AudioOutput.prototype.onDecodeAudio = function(buffer){
 
 AudioOutput.prototype.stopIfNeeded = function(){
   if (!this.playing) return;
+
   this.audioSource.stop();
   this.needsNewSource = true;
   this.playing = false;
@@ -77,8 +79,10 @@ AudioOutput.prototype.startIfNeeded = function(){
 
   this.replaceSourceIfNeeded();
 
-  if(this.audioSource){
+  if (this.audioSource) {
     this.audioSource.start(0, this.currTime);
+
+    // Time keeping is broken still
     this.currTime = this.context.currentTime - this.startTime;
     this.startTime = this.context.currentTime - this.currTime;
     this.playing = true;
@@ -92,9 +96,7 @@ AudioOutput.prototype.replaceSourceIfNeeded = function(){
   this.audioSource = this.context.createBufferSource();
   this.audioSource.buffer = this.decodedBuffer;
 
-  console.log(this.gainNode);
-
-  // Connect it up to our speaker
+  // (Re)connect our volume and audio components to the speaker
   this.audioSource.connect(this.gainNode);
   this.gainNode.connect(this.context.destination);
 
