@@ -1,6 +1,5 @@
 node_modules
 build
 .idea
-app/client/bower
 app/client/dist
-app/client/vendor
+app/client/components/vendor
