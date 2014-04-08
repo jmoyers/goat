@@ -28,18 +28,10 @@ module.exports = function (grunt) {
         }
       }
     },
-    /**
-     * <script type="text/javascript" src="components/vendor/websocket-stream/websocket-stream.js"></script>
-     * <script type="text/javascript" src="services/audio-output.js"></script>
-     <script type="text/javascript" src="components/vendor/lodash/dist/lodash.js"></script>
-     <script type="text/javascript" src="components/vendor/jquery/dist/jquery.js"></script>
-     <script type="text/javascript" src="components/vendor/angular/angular.js"></script>
-     <script type="text/javascript" src="components/client.js"></script>
-     */
     uglify: {
       my_target: {
         files: {
-          'app/dist/client.min.js': [
+          'app/client/dist/client.min.js': [
             'app/client/components/vendor/websocket-stream/websocket-stream.js',
             'app/client/services/audio-output.js',
             'app/client/components/vendor/lodash/dist/lodash.js',
@@ -53,7 +45,7 @@ module.exports = function (grunt) {
     cssmin: {
       combine: {
         files: {
-          'app/dist/client.min.css': [
+          'app/client/dist/client.min.css': [
             'app/client/dist/css/client.css'
           ]
         }
@@ -65,9 +57,7 @@ module.exports = function (grunt) {
           paths: ["app/client/components/"]
         },
         files: {
-          "app/client/dist/css/client.css" : "app/client/components/vendor/bootstrap/less/bootstrap.less",
-
-
+          "app/client/dist/css/client.css" : "app/client/components/client.less"
         }
       }
     }
