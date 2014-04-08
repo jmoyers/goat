@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html ng-app="goat" ng-controller="GoatController">
 <head>
-    <link rel="stylesheet" href="dist/client.min.css">
-    <script type="text/javascript" src="dist/client.min.js"></script>
+    <!--<link rel="stylesheet" href="dist/client.min.css">-->
+    <!--<script type="text/javascript" src="dist/client.min.js"></script>-->
     <link rel="stylesheet/less" type="text/css" href="components/client.less">
 
-    <!--<script type="text/javascript" src="components/vendor/websocket-stream/websocket-stream.js"></script>-->
-    <!--<script type="text/javascript" src="services/audio-output.js"></script>-->
-    <!--<script type="text/javascript" src="components/vendor/lodash/dist/lodash.js"></script>-->
-    <!--<script type="text/javascript" src="components/vendor/jquery/dist/jquery.js"></script>-->
-    <!--<script type="text/javascript" src="components/vendor/angular/angular.js"></script>-->
-    <!--<script type="text/javascript" src="components/client.js"></script>-->
-
-    <!--<script type="text/javascript" src="components/vendor/less/less.js"></script>-->
+    <script type="text/javascript" src="components/vendor/websocket-stream/websocket-stream.js"></script>
+    <script type="text/javascript" src="services/audio-output.js"></script>
+    <script type="text/javascript" src="components/vendor/lodash/dist/lodash.js"></script>
+    <script type="text/javascript" src="components/vendor/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="components/vendor/angular/angular.js"></script>
+    <script type="text/javascript" src="components/client.js"></script>
+    <script type="text/javascript" src="components/vendor/less/less.js"></script>
 </head>
 <body>
     <div class="navbar navbar-fixed-top">
         <div class="container">
+            <div class="song-details">
+                {{player.media.artist}} - {{player.media.title}}
+                {{player.media.album}} ({{player.media.year}})
+            </div>
+
             <player player="player" size="m" />
         </div>
     </div>
     <div class="container">
-        <table class="table tracklisting">
+        <table class="tracklisting">
             <thead>
                 <tr>
                     <td class="song">Song</td>
@@ -30,12 +34,14 @@
                     <td class="album">Album</td>
                 </tr>
             </thead>
-            <tr>
-                <td>{{song}}</td>
-                <td>{{duration}}</td>
-                <td>{{artist}}</td>
-                <td>{{album}}</td>
-            </tr>
+            <tbody>
+                <tr ng-repeat="track in tracklisting">
+                    <td>{{track.title}}</td>
+                    <td>{{track.duration}}</td>
+                    <td>{{track.artist}}</td>
+                    <td>{{track.album}}</td>
+                </tr>
+            </tbody>
         </table>
     </div>
     <div ng-if="debug" ng-include="'components/debug.html'"></div>

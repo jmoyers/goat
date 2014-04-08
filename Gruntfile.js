@@ -71,7 +71,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', ['less', 'cssmin', 'uglify']);
 
-
   grunt.registerTask('launchWebkitApp', 'After build, run the generated node-webkit process.', function () {
     console.log("Launching node webkit instance for goat...");
 

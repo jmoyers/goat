@@ -88,6 +88,17 @@ app.controller('GoatController', ['$scope', 'config', function ($scope, config, 
     $scope.heapUsed = "0.00 MB";
   }
 
+  $scope.tracklisting = [];
+
+  for(var i = 0; i < 100; i++)
+    $scope.tracklisting.push({
+      title: "The Outsider",
+      artist: "A Perfect Circle",
+      album: "Thirteenth Step",
+      duration: 500,
+      year: 2004
+    });
+
   $scope.debug = function () {
     require('nw.gui').Window.get().showDevTools();
   }
