@@ -16,9 +16,7 @@ app.service('MediaPlayer', ['MediaStream', 'AudioOutput', MediaPlayer]);
 
 app.controller('GoatController', ['$scope', 'config', 'MediaPlayer', function ($scope, config, player) {
   $scope = _.extend($scope, config);
-
   $scope.player = player;
-
   $scope.tracks = [];
 
   for(var i = 0; i < 100; i++)

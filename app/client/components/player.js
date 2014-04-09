@@ -1,10 +1,10 @@
-app.directive("player", function() {
+app.directive('player', function() {
   return {
-    restrict: "E",
-    templateUrl: "components/player.html",
+    restrict: 'E',
+    templateUrl: 'components/player.html',
     replace: true,
     scope: {
-      player: "=controls"
+      player: '=controls'
     },
     link: function(scope, element, attrs){
       var sizeButtonClass = {

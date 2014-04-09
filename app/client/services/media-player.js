@@ -5,7 +5,6 @@ function MediaPlayer(mediaStream, audioOutput){
     PAUSED: 2
   }
 
-  this.trackSource = null;
   this.state = this.PlayStates.PAUSED;
   this.time = 0;
   this.volume = 1;
@@ -57,12 +56,12 @@ function MediaPlayer(mediaStream, audioOutput){
     return this.state == this.PlayStates.PAUSED;
   }
 
-  this.setMedia = function(media, tracklisting){
+  this.setMedia = function(media){
     this.media = media;
     this.requestMedia();
   }
 
-  this.requestNewMedia = function(){
+  this.requestMedia = function(){
     this.mediaStream.write(this.media.id);
   }
 }
