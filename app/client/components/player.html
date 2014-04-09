@@ -1,17 +1,23 @@
-<div>
-    <div class="btn-group">
-        <button class="btn btn-default {{size}}">
-            <span class="glyphicon glyphicon-backward" ng-click="player.prev()"></span>
-        </button>
+<div class="player navbar navbar-fixed-top">
+    <div class="container">
+        <div class="song-details">
+            {{player.media.artist}} - {{player.media.title}}
+            {{player.media.album}} ({{player.media.year}})
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-default {{size}}">
+                <span class="glyphicon glyphicon-backward" ng-click="player.prev()"></span>
+            </button>
 
-        <toggle-button size="{{size}}" notify="player.playToggle()" state="player.isPlaying()" off="glyphicon-play" on="glyphicon-pause"></toggle-button>
+            <toggle-button size="{{size}}" notify="player.playToggle()" state="player.isPlaying()" off="glyphicon-play" on="glyphicon-pause"></toggle-button>
 
-        <button class="btn btn-default {{size}}">
-            <span class="glyphicon glyphicon-forward" ng-click="player.next()"></span>
-        </button>
+            <button class="btn btn-default {{size}}">
+                <span class="glyphicon glyphicon-forward" ng-click="player.next()"></span>
+            </button>
 
-        <toggle-button size="{{size}}" notify="player.muteToggle()" state="player.muted" off="glyphicon-volume-up" on="glyphicon-volume-off"></toggle-button>
+            <toggle-button size="{{size}}" notify="player.muteToggle()" state="player.muted" off="glyphicon-volume-up" on="glyphicon-volume-off"></toggle-button>
 
-        <toggle-button size="{{size}}" notify="player.starToggle()" state="player.media.starred" off="glyphicon-star-empty" on="glyphicon-star"></toggle-button>
+            <toggle-button size="{{size}}" notify="player.starToggle()" state="player.media.starred" off="glyphicon-star-empty" on="glyphicon-star"></toggle-button>
+        </div>
     </div>
 </div>

@@ -1,82 +1,28 @@
 @import "vendor/bootstrap/less/bootstrap";
-@icon-font-path: "/components/vendor/bootstrap/fonts/";
-
-@body: #242A32;
-@body-accent: #00A9D9;
-@indicator: #FFB400;
-@light-outline: #3A3E45;
-@table: #1F222B;
-@table-border: #5A5F66;
-@table-cell-border: #1A1D26;
-@table-border-radius: 2px;
-@text: #FFFAEA;
-@text-shadow: #0D1828;
-@info-text: #59616C;
-@info-text-shadow: #1F242E;
-@navbar-padding: 15px;
-
-.box-shadow (@string) {
-  -webkit-box-shadow: @string;
-  -moz-box-shadow:    @string;
-  box-shadow:         @string;
-}
+@import "variables";
+@import "player";
+@import "tracklist";
 
 body {
   color: @text;
+  background-color: @info-text;
   margin-top: 68px + (@navbar-padding * 2);
-  background-color: @body;
 }
 
-.navbar {
+.debug {
   background-color: @body;
-  border: 2px solid @table-cell-border;
-  padding: @navbar-padding;
+  border-top: 2px solid @table-cell-border;
   .box-shadow(0px 0px 3px 1px @body);
-
-  .song-details {
-    line-height: 200%;
-    font-size: 18px;
-  }
 }
 
-.tracklisting {
-  margin-bottom: 20px;
-  background-color: @table;
-  border: 2px solid @table-border;
-  width: 900px;
+.w {
+  border: 1px solid red;
+}
 
-  th, td {
-    box-shadow: inset 0 -1px rgba(0,0,0,0.25),
-    inset 0 1px rgba(0,0,0,0.25);
-  }
+.t {
+  border: 1px dotted red;
+}
 
-  thead {
-  }
-
-  td {
-    padding: 0.7em 1em 0.7em 1.15em;
-    text-shadow: 0 0 1px rgba(255,255,255,0.1);
-    font-size: 1.4em;
-  }
-
-  tr {
-    color: @text;
-    text-shadow: 0px 2px 3px #555;
-    -webkit-transition: background 0.3s, box-shadow 0.3s;
-    -moz-transition: background 0.3s, box-shadow 0.3s;
-    transition: background 0.3s, box-shadow 0.3s;
-  }
-
-  .song {
-    width: 250px;
-  }
-  .time {
-    width: 60px;
-  }
-  .artist {
-    width: 120px;
-  }
-  .album {
-    width: 120px;
-  }
+.f {
+  border: 1px dashed red;
 }

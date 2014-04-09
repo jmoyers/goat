@@ -1,0 +1,12 @@
+<div class="tracklisting container">
+    <table>
+        <tbody ng-repeat="track in tracks">
+            <tr ng-click="onClickTrack($event)">
+                <td class="title">{{track.title}}</td>
+                <td class="time">{{track.duration}}</td>
+                <td class="artist">{{track.artist}}</td>
+                <td class="album">{{track.album}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
