@@ -11,19 +11,13 @@ function AudioOutput() {
   var context = this.context = new webkitAudioContext();
 
   this.gainNode = context.createGainNode();
-  this.gainNode.value = 0;
 
   this.analyser = context.createAnalyser();
   this.analyser.fftSize = 128;
-  this.analyser.maxDecibels = 100;
-  this.analyser.minDecibels = 0;
-
 
   this.audioSource = false;
   this.rawBuffer = false;
   this.decodedBuffer = false;
-
-  setInterval(this.getVisualisationData.bind(this), 2000);
 
   // Composable decoder, later will factor into Duplex stream to use mp3.js
   this.decode =_.debounce(context.decodeAudioData.bind(context), 50, {
@@ -51,7 +45,6 @@ AudioOutput.prototype.stop = function(){
 }
 
 AudioOutput.prototype.setVolume = function(volume){
-  console.log("Setting audio output to: " + volume);
   this.gainNode.gain.value = volume;
 }
 
@@ -112,9 +105,9 @@ AudioOutput.prototype.replaceSourceIfNeeded = function(){
   this.audioSource.buffer = this.decodedBuffer;
 
   // (Re)connect our volume and audio components to the speaker
-  this.audioSource.connect(this.gainNode);
-  this.gainNode.connect(this.analyser);
-  this.analyser.connect(this.context.destination);
+  this.audioSource.connect(this.analyser);
+  this.analyser.connect(this.gainNode);
+  this.gainNode.connect(this.context.destination);
 
   this.needsNewSource = false;
 }

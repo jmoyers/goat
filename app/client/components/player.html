@@ -1,5 +1,6 @@
 <div class="player navbar navbar-fixed-top">
     <div class="container">
+        <visualizer analyser="player.audioOutput.analyser"></visualizer>
         <div class="song-details">
             {{player.media.artist}} - {{player.media.title}}
             {{player.media.album}} ({{player.media.year}})
@@ -19,6 +20,5 @@
 
             <toggle-button size="{{size}}" notify="player.starToggle()" state="player.media.starred" off="glyphicon-star-empty" on="glyphicon-star"></toggle-button>
         </div>
-        <visualizer data="player.audioOutput.getVisualisationData()"></visualizer>
     </div>
 </div>

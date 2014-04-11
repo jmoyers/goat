@@ -6,7 +6,7 @@ app.directive("tracklist", function(){
     scope: {
       tracks: "=source"
     },
-    link: function(scope, element){
+    link: function(scope){
       scope.onClickTrack = function($event){
         console.log($event.currentTarget);
       }

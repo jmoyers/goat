@@ -1,43 +1,54 @@
 app.directive('visualizer', function() {
   return {
     restrict: 'E',
-    template: '<canvas class="w" ' +
-      'style="position: absolute; top: 0; height: 100%; width: 400px;"' +
-      '></canvas>',
+    template: '<canvas class="visualiser"></canvas>',
     replace: true,
     scope: {
-      data: '&'
+      analyser: '='
     },
     link: function(scope, element){
-      console.log(element);
       var ctx = element[0].getContext('2d');
+      var parent = element[0].parentNode;
+      var height = 0;
+      var width = 0;
+      var barWidth = 0;
+      var heightScale = 0;
+      var dirty = true;
 
-      var height = element[0].offsetHeight;
-      var width = element[0].offsetWidth;
+      function matchParentPosition(){
+        element[0].height = $(parent).innerHeight();
+        element[0].width = $(parent).innerWidth();
+        $(element[0]).css('right',$(parent).css('marginRight'));
+        dirty = true;
+      }
 
-      var gradient = ctx.createLinearGradient(0, 0, 0, 300);
-
-      gradient.addColorStop(1, '#ff0000');
-      gradient.addColorStop(0.75, '#ff0000');
-      gradient.addColorStop(0.25, '#ff0000');
-      gradient.addColorStop(0, '#f3f3f3');
+      $(window).resize(matchParentPosition);
+      setTimeout(matchParentPosition, 0);
 
       var draw = function(){
-        var data = scope.data();
-        var wratio = width / data.length;
-        var hratio = height / 100;
+        var data = new Uint8Array(scope.analyser.frequencyBinCount);
+        scope.analyser.getByteFrequencyData(data);
+
+        if (dirty) {
+          height = element[0].offsetHeight;
+          width = element[0].offsetWidth;
+
+          barWidth = width / data.length;
+          heightScale = height / (255 * 1.5);
+
+          dirty = false;
+        }
 
         ctx.clearRect(0, 0, width, height);
-        ctx.fillStyle = gradient;
-        for (var i = 0, len = data.length; i < len; i += 1) {
-          var value = data[i];
-          ctx.fillRect(wratio * i, (height - (value * hratio)), 3, height);
+        ctx.fillStyle = "#00A9D9";
+
+        for (var i = 0; i < data.length - 1; i += 1) {
+          ctx.fillRect(barWidth * i, height - (data[i+1] * heightScale), barWidth, height);
         }
 
         requestAnimationFrame(draw);
       }
 
-//      setInterval(draw, 2000);
       requestAnimationFrame(draw);
     }
   }
