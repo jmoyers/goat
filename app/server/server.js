@@ -45,7 +45,7 @@ wss.on('connection', function (ws) {
   console.time("Song id3 parsed");
 
   Song.load(song, function (err, song) {
-    console.time("Song id3 parsed");
+
     song.createReadStream().pipe(wsstream(ws));
   });
 

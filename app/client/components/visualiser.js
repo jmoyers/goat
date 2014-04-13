@@ -7,6 +7,9 @@ app.directive('visualizer', function() {
       analyser: '='
     },
     link: function(scope, element){
+      // Allocate once, get new byte array per draw call
+      var data = new Uint8Array(scope.analyser.frequencyBinCount);
+
       var ctx = element[0].getContext('2d');
       var parent = element[0].parentNode;
       var height = 0;
@@ -23,10 +26,9 @@ app.directive('visualizer', function() {
       }
 
       $(window).resize(matchParentPosition);
-      setTimeout(matchParentPosition, 0);
+      setTimeout(matchParentPosition, 0); // Frown
 
       var draw = function(){
-        var data = new Uint8Array(scope.analyser.frequencyBinCount);
         scope.analyser.getByteFrequencyData(data);
 
         if (dirty) {
