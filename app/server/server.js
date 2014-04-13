@@ -30,8 +30,6 @@ var library = "C:/Users/Joshua/Dropbox/iTunes/iTunes Music";
 var song = library + "/A Perfect Circle/Thirteenth Step/06 A Stranger.mp3";
 //var song = "C:/Users/Joshua/Downloads/test.mp3"
 
-
-
 wss.on('connection', function (ws) {
   console.log("New ws connection");
 
@@ -42,12 +40,12 @@ wss.on('connection', function (ws) {
 //    }));
 //  }, 5000);
 
-  console.time("Song id3 parsed");
-
-  Song.load(song, function (err, song) {
-
-    song.createReadStream().pipe(wsstream(ws));
-  });
+//  console.time("Song id3 parsed");
+//
+//  Song.load(song, function (err, song) {
+//
+//    song.createReadStream().pipe(wsstream(ws));
+//  });
 
   ws.on('close', function () {
     console.log('stopping client interval');
