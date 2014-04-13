@@ -25,10 +25,7 @@ Premise
 
 Code
 -----------
-* Binary websocket stream for media
-* Media tracks source = a data provider that gives a list of media in an array
-    * Default = your own hard disk
-    * Second = a webpage which parses for mp3 files
+* [x] Binary websocket stream for media
 * [x] Service: Media player = all state associated with currently playing track
     * [x] Service: Media stream = high level api for connecting a binary stream to low level browser media api
         * [x] Service: Audio context = low level api for playing audio
@@ -40,16 +37,42 @@ Code
                 * flac.js
                 * aac.js
                 * jsmad (mp3) - https://github.com/audiocogs/jsmad
-* Media tracks view = a view of all the media from a given source(s)
-* Local filesystem tracklisting
-    * Generate a list of files on the server from a directory on up
-    * Data structure
-        * File path
-        * An id so that we can request a binary stream
-        * All id3 stuff
+* [x] tracklist = a view of all the media from a given source(s)
+* Server service architecture
+    * We need to be able to CRUD tracksources
+    * We need to be able to request a binary stream
+    * Both of these things can be done via http or websockets
+    * Map RPC to rest interface and websockets sounds nice
+    * Really only need one, but lets do both for giggles to prove this post:
+        * http://stackoverflow.com/questions/6339393/how-can-socket-io-and-restful-work-together/6365213#6365213
+* [x] tracksource = a service for requesting and searching a tracklisting
+    * Server service structure
+        * List all tracksources
+        * Create new tracksource of type
+        * Request all data from a tracksource
+        * Request a binary stream of a track -- should we flatten this?
+    * Tracklistings have a type -- local file system, website, twitter user, API
+    * They also have an ID, since there can be multiple websites, twitter users, APIs
+    * Server broadcasts available types (introspected from a plugin directory at startup)
+    * Server allows you to create new tracksources based on an input (website, twitter user etc)
+    * Data
+        * Type -- hdd, twitter, etc
+        * Id -- server broadcast id, references a particular source
+        * Tracks -- here's the base datastore
+            * Track
+                * File path/url
+                * An id -- so that we can request a binary stream
+                * The track info
+                    * All id3 stuff
+                    * Youtube meta data
+                    * Do we normalize this in some fashion?
+                    * Duration
+                    * Date posted (if we can figure that out)
+                    * Date added to tracklist
+        * TrackView -- here's what goes on angular scope (post search filter)
     * In the app, we switch to this datasource and request a list
         * We probably want to cache it if we've already requested it
-        * We should probably cache it hard in the localStorage, since 100k songs is a lot
         * How should we handle full text search? Probably on the client side since, why not?
         * We should not do full text search with angular filters because that implies they are DOM elements
         * Means we should have a non-scope version of the listing, and a scope version of the listing that updates
+        * [opt] We should probably cache it hard in the localStorage, since 100k songs is a lot

@@ -1,5 +1,8 @@
 function TrackSource(){
-  this.listing = [];
+  this.type = "";
+  this.name = "";
+  this.tracks = [];
+  this.trackview = [];
 }
 
 // Request the listing from the server
