@@ -2,7 +2,7 @@ Goat
 ========
 A music player that focuses on letting you build ways to discover music
 
-![Goat WIP](https://raw.github.com/jmoyers/goat/master/goat.png)
+![Goat WIP](https://raw.githubusercontent.com/jmoyers/goat/master/goat.png)
 
 Premise
 -----------
