@@ -20,7 +20,7 @@ app.directive('visualizer', function() {
 
       function matchParentPosition(){
         element[0].height = $(parent).innerHeight();
-        element[0].width = $(parent).innerWidth();
+        element[0].width = $(parent).innerWidth() - 230;
         $(element[0]).css('right',$(parent).css('marginRight'));
         dirty = true;
       }
@@ -36,7 +36,7 @@ app.directive('visualizer', function() {
           width = element[0].offsetWidth;
 
           barWidth = width / data.length;
-          heightScale = height / (255 * 1.5);
+          heightScale = height / (255 * 2);
 
           dirty = false;
         }

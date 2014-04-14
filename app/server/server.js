@@ -6,8 +6,7 @@ var express = require('express');
 var WSS = require('ws').Server;
 var wsstream = require('websocket-stream');
 
-var Walk = require(path.join(__dirname, 'walk.js'));
-var Song = require(path.join(__dirname, 'song.js'));
+var MediaFile = require(path.join(__dirname, 'media-file.js'));
 
 var clientPath = path.join(__dirname, '..', 'client');
 
@@ -39,12 +38,9 @@ wss.on('connection', function (ws) {
 //    }));
 //  }, 5000);
 
-//  console.time("Song id3 parsed");
-//
-//  Song.load(song, function (err, song) {
-//
-//    song.createReadStream().pipe(wsstream(ws));
-//  });
+  MediaFile.load(song, function (err, track) {
+    track.createReadStream().pipe(wsstream(ws));
+  });
 
   ws.on('close', function () {
     console.log('stopping client interval');
