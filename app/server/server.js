@@ -2,7 +2,6 @@ var http = require('http');
 var path = require('path');
 
 var _ = require('lodash');
-var id3 = require('id3js');
 var express = require('express');
 var WSS = require('ws').Server;
 var wsstream = require('websocket-stream');

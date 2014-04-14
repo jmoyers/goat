@@ -40,9 +40,9 @@ describe('Walk', function(){
 
     walk.on('done', function (files) {
       var real = [
-        join(__dirname,'fixtures','flat','1.txt'),
-        join(__dirname,'fixtures','flat','2.txt'),
-        join(__dirname,'fixtures','flat','3.txt')
+        join(__dirname,'fixtures','flat','1.mp3'),
+        join(__dirname,'fixtures','flat','2.mp3'),
+        join(__dirname,'fixtures','flat','3.m4a')
       ];
 
       var diffEach = _.difference(real, results);
@@ -67,15 +67,15 @@ describe('Walk', function(){
 
     walk.on('done', function(files){
       var real = [
-        join(__dirname,'fixtures','recursive','1.txt'),
-        join(__dirname,'fixtures','recursive','2.txt'),
-        join(__dirname,'fixtures','recursive','3.txt'),
-        join(__dirname,'fixtures','recursive','one','1.txt'),
-        join(__dirname,'fixtures','recursive','one','2.txt'),
-        join(__dirname,'fixtures','recursive','one','3.txt'),
-        join(__dirname,'fixtures','recursive','one','two','1.txt'),
-        join(__dirname,'fixtures','recursive','one','two','2.txt'),
-        join(__dirname,'fixtures','recursive','one','two','3.txt')
+        join(__dirname,'fixtures','recursive','1.mp3'),
+        join(__dirname,'fixtures','recursive','2.mp3'),
+        join(__dirname,'fixtures','recursive','3.m4a'),
+        join(__dirname,'fixtures','recursive','one','1.mp3'),
+        join(__dirname,'fixtures','recursive','one','2.mp3'),
+        join(__dirname,'fixtures','recursive','one','3.m4a'),
+        join(__dirname,'fixtures','recursive','one','two','1.mp3'),
+        join(__dirname,'fixtures','recursive','one','two','2.mp3'),
+        join(__dirname,'fixtures','recursive','one','two','3.m4a')
       ];
 
       var diffEach = _.difference(results, real);
