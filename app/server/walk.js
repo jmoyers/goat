@@ -1,7 +1,7 @@
 var fs = require('fs');
 var join = require('path').join;
 var EventEmitter = require('events').EventEmitter;
-var util = require('util');
+var inherits = require('util').inherits;
 var async = require('async');
 
 function Walk(root) {
@@ -9,7 +9,7 @@ function Walk(root) {
   this.files = [];
 }
 
-util.inherits(Walk, EventEmitter);
+inherits(Walk, EventEmitter);
 
 Walk.prototype.fetch = function () {
   this.walk(this.root, this.emit.bind(this, 'done', this.files));
@@ -26,14 +26,18 @@ Walk.prototype.walk = function (path, done) {
     if (stats.isDirectory()) {
       fs.readdir(path, function (err, files) {
         if (err) return self.emit('error', err);
+
         files = files.map(function(file){
           return join(path, file);
         });
+
+        // Recurse and call done when everythings finished
         async.each(files, self.walk.bind(self), done);
       });
     } else if (stats.isFile()) {
       self.files.push(path);
       self.emit('file', path);
+
       done();
     }
 

@@ -15,7 +15,7 @@ describe('Walk', function(){
   it('should emit no files and a done event with an empty directory', function(done){
     var files = 0;
 
-    var walk = new Walk(join(__dirname, 'fixtures', 'empty'));
+    var walk = new Walk(join(__dirname,'fixtures','empty'));
 
     walk.on('file', function(){
       files++;
@@ -30,7 +30,7 @@ describe('Walk', function(){
   });
 
   it('should emit each file in a directory', function(done) {
-    var walk = new Walk(join(__dirname, 'fixtures', 'flat'));
+    var walk = new Walk(join(__dirname,'fixtures','flat'));
 
     var results = [];
 
@@ -57,7 +57,7 @@ describe('Walk', function(){
   });
 
   it('should also emit when recursing into subdirectories', function(done){
-    var walk = new Walk(join(__dirname, 'fixtures', 'recursive'));
+    var walk = new Walk(join(__dirname,'fixtures','recursive'));
 
     var results = [];
 
