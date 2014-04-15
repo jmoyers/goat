@@ -1,6 +1,22 @@
 Goat
 ========
-A music player that focuses on letting you build ways to discover music
+A music player that lets you take control
+
+* Tailor the way you discover new music
+* Don't sacrifice your mp3 library
+* Find ways to buy music that actually benefit the artist
+
+Mission
+-----------
+* Be in control of how you find out about new music, whether its twitter, a blog, reddit, or youtube
+* Have full access to your local mp3 library as well
+* Steaming music platforms are great for the casual consumer, terrible for individual artists
+    * http://musicbybradleyjames.wordpress.com/2012/05/07/hey-can-you-spotify-me-some-cash-an-indie-artists-perspective/
+    * http://www.billboard.com/biz/articles/news/1176619/another-indie-slams-spotify
+    * http://www.billboard.com/biz/articles/news/1176562/spotify-responds-to-indie-criticism
+    * http://i.imgur.com/7smqcWW.jpg
+    * And so on....
+* Do all of the above with speed and beauty (coming soon?)
 
 ![Goat WIP](http://dl.dropboxusercontent.com/u/47558221/clarify/2014-04-14-00h04m/localhost-8080---Google-Chrome-sm.png)
 
