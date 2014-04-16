@@ -18,6 +18,7 @@ MediaFile.load = function (file, cb) {
   parser.once('metadata', function(data){
     // This sometimes shows up as a UTC format, sometimes just as year
     data.year = data.year.length > 3 ? data.year.slice(0, 4) : false;
+
     cb(null, new MediaFile(file, data));
   });
 
