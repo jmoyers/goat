@@ -1,3 +1,5 @@
+Currently unmaintained. I like some of these ideas, so I'm leaving it here for future reference.
+
 Goat
 ========
 A music player that lets you take control
@@ -15,14 +17,12 @@ Mission
     * http://www.billboard.com/biz/articles/news/1176619/another-indie-slams-spotify
     * http://www.billboard.com/biz/articles/news/1176562/spotify-responds-to-indie-criticism
     * http://i.imgur.com/7smqcWW.jpg
-    * And so on....
-* Do all of the above with speed and beauty (coming soon?)
+    * And so on...
 
 ![Goat WIP](http://dl.dropboxusercontent.com/u/47558221/clarify/2014-04-14-00h04m/localhost-8080---Google-Chrome-sm.png)
 
 Premise
 -----------
-* Open source (??)
 * Node-webkit based implementation to take advantage of html for display and node libraries for fs, id3, etc
 * Fast with big datasets (100k songs should be no problem)
 * Don't focus on the album art as first principle, focus on the list of music and controls
